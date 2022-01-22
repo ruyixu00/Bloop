@@ -87,7 +87,6 @@
 			for (let i = 0; i < circleholder.length; i++){
 				ctx.beginPath();
 				ctx.arc(circleholder[i][0], circleholder[i][1], circleholder[i][2], 0, 2*Math.PI);
-				var t = circleholder[i][2];
 				var e = circleholder[i][3]/3.77 * 1/(circleholder[i][2]*0.1+.001);
 				ctx.strokeStyle = "rgba(255, 255, 255, " + e + ")";
 				ctx.lineWidth = 5;
