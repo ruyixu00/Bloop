@@ -65,21 +65,6 @@
 		
 		const circleholder = [];
 		
-		function drawCircles() {
-			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-			var newArray = [];
-			for (let i = 0; i < circleholder.length; i++){
-				ctx.beginPath();
-				ctx.arc(circleholder[i][0], circleholder[i][1], circleholder[i][2], 0, 2*Math.PI);
-				var t = circleholder[i][2];
-				var e = circleholder[i][3]/3.77 * 1/(circleholder[i][2]*0.1+.001);
-				ctx.strokeStyle = "rgba(255, 255, 255, " + e + ")";
-				ctx.lineWidth = 5;
-				ctx.stroke();
-				circleholder[i][2] += 1;
-			}
-			
-		}
 		canvas.onclick = function() {
 			x1 = coorx();
 			y1 = coory();
@@ -93,10 +78,23 @@
 			if (circleholder.length > 20){ 
 				circleholder.shift();
 			}
-			
 			circleholder.push(circle);
-			
 		}
+		
+		function drawCircles() {
+			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+			for (let i = 0; i < circleholder.length; i++){
+				ctx.beginPath();
+				ctx.arc(circleholder[i][0], circleholder[i][1], circleholder[i][2], 0, 2*Math.PI);
+				var t = circleholder[i][2];
+				var e = circleholder[i][3]/3.77 * 1/(circleholder[i][2]*0.1+.001);
+				ctx.strokeStyle = "rgba(255, 255, 255, " + e + ")";
+				ctx.lineWidth = 5;
+				ctx.stroke();
+				circleholder[i][2] += 1;
+			}
+		}
+		
 		setInterval(drawCircles, 10);
 	</script>
 </body>
