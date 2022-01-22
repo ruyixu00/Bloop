@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<link rel="stylesheet" href="style.css">
+<title>Bloop!</title>
+</head>
+
+<body>
+	
+	<h1>Coin Drop Simulation</h1>
+<div class="window">
+		<div class="container">
+		<img id="coin" src="coin.gif" alt="coin">
+		</div>
+		<div class="text">
+		<p id="coor"></p>
+		<h3>Our Assumptions :</h3>
+		<p class="assume">1) There is no air resistance at rest when dropping the coin.</p>
+		<p class="assume">2) There is no wind.</p>
+		<p class="assume">3) The pond is infinitely deep and wide.</p>
+		<p class="assume">4) The coin tumbles in 2 dimension.</p>
+		<p class="assume">5) The coin is flat, i.e. the height is 0.</p>
+		<p class="assume">6) The coin has constant drag coefficient (Cd).</p>
+		<p class="assume">7) All the coin's potential energy is converted to kinetic energy </p>
+		<p class="assume" id="indent">and subsequently to wave energy.</p>
+		<p class="assume">8) Air flow is laminar.</p>
+		<br>
+		</div>
+	</div>
+	
+	<div class="aslider">
+		<input type="range" min="0" max="64" value="1" class="realslider" id="slidera">
+		<br>
+		<p class="hslider">Height : <span id="height"></span> m</p>
+	</div>	
+
+	<script>
+		var aslider = document.getElementById("slidera");
+		var output = document.getElementById("height");
+		output.innerHTML = aslider.value;
+		
+		aslider.oninput = function(){
+			output.innerHTML = this.value;
+		}
+	</script>
+	
+<canvas id="myCanvas"></canvas>
+	
+	<script>
+		var canvas = document.getElementById("myCanvas");
+		var ctx = canvas.getContext("2d");
+		function coorx(x1){
+			var x1 = event.offsetX;
+			return x1;
+		}
+		function coory(y1){
+			var y1 = event.offsetY;
+			document.getElementById("coor").innerHTML = x1.toString() + ", " + y1.toString();
+			return y1;
+		}
+		
+		ctx.canvas.width = document.documentElement.scrollWidth;
+		ctx.canvas.height = document.documentElement.scrollHeight;
+		
+		const circleholder = [];
+		
+		function drawCircles() {
+			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+			var newArray = [];
+			for (let i = 0; i < circleholder.length; i++){
+				ctx.beginPath();
+				ctx.arc(circleholder[i][0], circleholder[i][1], circleholder[i][2], 0, 2*Math.PI);
+				var t = circleholder[i][2];
+				var e = circleholder[i][3]/3.77 * 1/(circleholder[i][2]*0.1+.001);
+				ctx.strokeStyle = "rgba(255, 255, 255, " + e + ")";
+				ctx.lineWidth = 5;
+				ctx.stroke();
+				circleholder[i][2] += 1;
+			}
+			
+		}
+		canvas.onclick = function() {
+			x1 = coorx();
+			y1 = coory();
+			var aslider = document.getElementById("slidera");
+			var h = aslider.value;
+			var e = (0.006)*(9.81)*h;
+			e *= Math.random()*.87+.13;
+			var r = 0;
+			const circle = [x1, y1, r, e];
+			
+			if (circleholder.length > 20){ 
+				circleholder.shift();
+			}
+			
+			circleholder.push(circle);
+			
+		}
+		setInterval(drawCircles, 10);
+	</script>
+</body>
+	
+</html>
+
