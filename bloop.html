@@ -14,6 +14,7 @@
 		<img id="coin" src="coin.gif" alt="coin">
 		</div>
 		<div class="text">
+		
 		<h3>Our Assumptions :</h3>
 		<p class="assume">1) There is no air resistance at rest when dropping the coin.</p>
 		<p class="assume">2) There is no wind.</p>
@@ -25,7 +26,10 @@
 		<p class="assume" id="indent">and subsequently to wave energy.</p>
 		<p class="assume">8) Air flow is laminar.</p>
 		<p class="assume">9) A $1 CAD coin is being used.</p>
-		<br>
+		<br>	
+		<h3>About the Circles :</h3>
+		<p class="assume"> Higher the opacity of the circle, higher the energy of the wavefront.</p>
+		<p class="assume"> Anything above 64 m will not have a difference.</p>
 		</div>
 	</div>
 	
@@ -44,8 +48,8 @@
 			output.innerHTML = this.value;
 		}
 	</script>
-	
-<canvas id="myCanvas"></canvas>
+	<p id="coor"></p>
+	<canvas id="myCanvas"></canvas>
 	
 	<script>
 		var canvas = document.getElementById("myCanvas");
@@ -99,4 +103,3 @@
 </body>
 	
 </html>
-
